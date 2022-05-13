@@ -2,13 +2,27 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Peca, Venda
-from .forms import PecaForm
+from .forms import PecaForm, VendaForm
 from django.contrib.auth.models import User
 
 
 @login_required
 def index(request):
-    return render(request, 'dashboard/index.html')
+    vendas = Venda.objects.all()
+    if request.method == 'POST':
+        form = VendaForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.staff = request.user
+            instance.save()
+            return redirect('dashboard-index')
+    else:
+        form = VendaForm()
+    context = {
+        'vendas': vendas,
+        'form': form,
+    }
+    return render(request, 'dashboard/index.html', context)
 
 
 @login_required
