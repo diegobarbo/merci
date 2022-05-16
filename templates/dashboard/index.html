@@ -15,17 +15,18 @@
                         var myChart1 = new Chart(ctx, {
                             type: 'pie',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: [{% for venda in vendas %} '{{ venda.peca.nome }}', {% endfor %}],
                                 datasets: [{
-                                    label: 'Products',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    label: 'Vendas',
+                                    data: [{% for venda in vendas %} {{ venda.venda_quantidade }}, {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',
                                         'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(225, 139, 164, 14)',
                                     ],
                                     borderColor: [
                                         'rgba(255, 99, 132, 1)',
@@ -59,10 +60,10 @@
                         var myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: [{% for peca in pecas %} '{{ peca.nome }}', {% endfor %}],
                                 datasets: [{
-                                    label: 'Products',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    label: 'Peças',
+                                    data: [{% for peca in pecas %} '{{ peca.quantidade }}', {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',

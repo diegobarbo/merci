@@ -10,6 +10,7 @@ from django.contrib import messages
 @login_required
 def index(request):
     vendas = Venda.objects.all()
+    pecas = Peca.objects.all()
     if request.method == 'POST':
         form = VendaForm(request.POST)
         if form.is_valid():
@@ -22,6 +23,7 @@ def index(request):
     context = {
         'vendas': vendas,
         'form': form,
+        'pecas': pecas
     }
     return render(request, 'dashboard/index.html', context)
 
