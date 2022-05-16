@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Peca, Venda
 from .forms import PecaForm, VendaForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 @login_required
@@ -52,6 +53,8 @@ def pecas(request):
         form = PecaForm(request.POST)
         if form.is_valid():
             form.save()
+            peca_nome = form.cleaned_data.get('nome')
+            messages.success(request, f'{peca_nome} foi adicionado(a)!')
             return redirect('dashboard-pecas')
     else:
         form = PecaForm()
