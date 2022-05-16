@@ -23,7 +23,7 @@
                                 <a class="text-decoration-none text-dark" href="{% url 'dashboard-staff' %}">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Staff <i class="fas fa-users"></i></h4>
-                                        <h3>4</h3>
+                                        <h3>{{ workers_count }}</h3>
                                     </div>
                                 </a>
                             </div>
@@ -31,7 +31,7 @@
                                 <a class="text-decoration-none text-dark" href="{% url 'dashboard-pecas' %}">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Peças <i class="fas fa-box"></i></h4>
-                                        <h3>4</h3>
+                                        <h3>{{ pecas_count }}</h3>
                                     </div>
                                 </a>
                             </div>
@@ -39,7 +39,7 @@
                                 <a class="text-decoration-none text-dark" href="{% url 'dashboard-vendas' %}">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Vendas <i class="fas fa-shipping-fast"></i></h4>
-                                        <h3>4</h3>
+                                        <h3>{{ vendas_count }}</h3>
                                     </div>
                                 </a>
                             </div>

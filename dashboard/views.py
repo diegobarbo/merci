@@ -11,6 +11,9 @@ from django.contrib import messages
 def index(request):
     vendas = Venda.objects.all()
     pecas = Peca.objects.all()
+    vendas_count = vendas.count()
+    pecas_count = pecas.count()
+    workers_count = User.objects.all().count()
     if request.method == 'POST':
         form = VendaForm(request.POST)
         if form.is_valid():
@@ -23,7 +26,10 @@ def index(request):
     context = {
         'vendas': vendas,
         'form': form,
-        'pecas': pecas
+        'pecas': pecas,
+        'pecas_count': pecas_count,
+        'workers_count': workers_count,
+        'vendas_count': vendas_count,
     }
     return render(request, 'dashboard/index.html', context)
 
@@ -31,8 +37,14 @@ def index(request):
 @login_required
 def staff(request):
     workers = User.objects.all()
+    workers_count = workers.count()
+    vendas_count = Venda.objects.all().count()
+    pecas_count = Peca.objects.all().count()
     context = {
-        'workers': workers
+        'workers': workers,
+        'workers_count': workers_count,
+        'vendas_count': vendas_count,
+        'pecas_count': pecas_count,
     }
     return render(request, 'dashboard/staff.html', context)
 
@@ -49,8 +61,10 @@ def staff_detail(request, pk):
 @login_required
 def pecas(request):
     items = Peca.objects.all()  # using orm
+    pecas_count = items.count()
     # items = Peca.objects.raw('SELECT * FROM dashboard_peca')
-
+    workers_count = User.objects.all().count()
+    vendas_count = Venda.objects.all().count()
     if request.method == 'POST':
         form = PecaForm(request.POST)
         if form.is_valid():
@@ -63,6 +77,9 @@ def pecas(request):
     context = {
         'items': items,
         'form': form,
+        'workers_count': workers_count,
+        'vendas_count': vendas_count,
+        'pecas_count': pecas_count,
     }
     return render(request, 'dashboard/pecas.html', context)
 
@@ -95,7 +112,13 @@ def peca_update(request, pk):
 @login_required
 def vendas(request):
     vendas = Venda.objects.all()
+    vendas_count = vendas.count()
+    workers_count = User.objects.all().count()
+    pecas_count = Peca.objects.all().count()
     context = {
         'vendas': vendas,
+        'workers_count': workers_count,
+        'vendas_count': vendas_count,
+        'pecas_count': pecas_count,
     }
     return render(request, 'dashboard/vendas.html', context)
